@@ -1,0 +1,9 @@
+dist
+src/config/local*
+node_modules
+npm-debug.log
+*~
+*#
+.DS_STORE
+reports
+.vscode
