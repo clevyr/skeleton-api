@@ -2,10 +2,10 @@ import { Context } from 'koa';
 import _ from 'lodash';
 import Joi from 'joi';
 
-import userModel from './model';
+import userModel, { UserStatus } from './model';
 import { serializeUser } from './utils';
 import { Logger } from '../../utils/logger';
-import { UserError, ErrorCode, ConflictError, UnauthorizedError } from '../../utils/errors';
+import { UserError, ErrorCode, ConflictError } from '../../utils/errors';
 
 export class UserController {
   private logger = new Logger('UserController');
@@ -44,22 +44,45 @@ export class UserController {
 
   public async getUser(ctx: Context) {
     this.logger.verbose('getUser(', ctx.params.userId, ')');
-    await this.validateGetUser(ctx);
 
     const serializedUser = serializeUser(ctx.state.user);
 
     return ctx.success({ data: serializedUser });
   }
 
-  private async validateGetUser(ctx: Context) {
-    if (ctx.state.user.id !== ctx.state.auth.id) throw new UnauthorizedError({ errorCode: ErrorCode.E_40105 });
+  public async updateUser(ctx: Context) {
+    this.logger.verbose('updateUser(', ctx.params.userId, ctx.request.body, ')');
+    await this.validateUpdateUser(ctx);
+
+    const payload: { name?: string; email?: string; password?: string; status?: UserStatus } = _.pick(ctx.request.body, ['name', 'email', 'password']);
+    if (payload.email && payload.email !== ctx.state.user.email) {
+      payload.status = UserStatus.pending;
+    }
+
+    const user = await userModel.updateUser(ctx.params.userId, payload);
+    const serializedUser = serializeUser(user);
+
+    return ctx.success({ data: serializedUser });
   }
 
-  public updateUser(ctx: Context) {
-    ctx.throw(501);
+  private async validateUpdateUser(ctx: Context) {
+    const { error } = Joi.validate(ctx.request.body, {
+      name: Joi.string(),
+      email: Joi.string().email(),
+      password: Joi.string().min(8),
+    });
+
+    if (error) throw new UserError({ errorCode: ErrorCode.E_40005, message: 'Validation Error', data: error });
+
+    const { email } = ctx.request.body;
+    if (email && email !== ctx.state.user.email) {
+      const existingEmail = await userModel.getUserByEmail(email);
+      if (existingEmail) throw new ConflictError({ errorCode: ErrorCode.E_40902, message: 'Email already in use' });
+    }
   }
 
   public deleteUser(ctx: Context) {
+    this.logger.verbose('deleteUser(', ctx.params.userId, ')');
     ctx.throw(501);
   }
 }

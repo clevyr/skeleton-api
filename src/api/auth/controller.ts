@@ -1,7 +1,6 @@
 import Joi from 'joi';
 import { Context } from 'koa';
 
-import isAuth from '../../middleware/isAuth';
 import { UserError, ErrorCode } from '../../utils/errors';
 import { Logger } from '../../utils/logger';
 import userModel from '../user/model';
@@ -22,15 +21,6 @@ export class AuthController {
     return ctx.success({ data: authToken });
   }
 
-  async getAuthenticated(ctx: Context) {
-    this.logger.verbose('getAuthenticated()');
-    await isAuth(ctx);
-
-    const serializedUser = serializeUser(ctx.state.auth);
-
-    return ctx.success({ data: serializedUser });
-  }
-
   private async validateAuthenticate(ctx: Context) {
     const { error } = Joi.validate(ctx.request.body, {
       email: Joi.string().required(),
@@ -46,6 +36,14 @@ export class AuthController {
     if (!await comparePassword(password, user.password)) {
       throw new UserError({ errorCode: ErrorCode.E_40004, message: 'Invalid auth credentials' });
     }
+  }
+
+  async getAuthenticated(ctx: Context) {
+    this.logger.verbose('getAuthenticated()');
+
+    const serializedUser = serializeUser(ctx.state.auth);
+
+    return ctx.success({ data: serializedUser });
   }
 }
 

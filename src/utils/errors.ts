@@ -6,13 +6,14 @@ export enum ErrorCode {
   E_40002 = 'E_40002', // AuthController.validateAuthenticate - Joi error
   E_40003 = 'E_40003', // AuthController.validateAuthenticate - Invalid email provided
   E_40004 = 'E_40004', // AuthController.validateAuthenticate - Password does not match
+  E_40005 = 'E_40005', // UserController.validateUpdateUser - Joi Error
 
   E_40100 = 'E_40100',
   E_40101 = 'E_40101', // middleware/isAuth - No auth header found
   E_40102 = 'E_40102', // middleware/isAuth - Invalid auth header format
   E_40103 = 'E_40103', // middleware/isAuth - Corrupted token
   E_40104 = 'E_40104', // middleware/isAuth - Invalid user ID in token
-  E_40105 = 'E_40105', // UserController.validateGetUser - User is not self
+  E_40105 = 'E_40105', // middleware/isResolvedUserMe - User is not self
 
   E_40400 = 'E_40400',
   E_40401 = 'E_40401', // middleware/handleError - When invalid route is hit
@@ -20,8 +21,12 @@ export enum ErrorCode {
 
   E_40900 = 'E_40900',
   E_40901 = 'E_40901', // UserController.validateCreateUser - Email in use
+  E_40902 = 'E_40902', // UserController.validateUpdateUser - Email in use
 
+  // These are "just in case" error codes, they should only be thrown because of programmer error. Still good to have for easy debugging.
   E_50000 = 'E_50000',
+  E_50001 = 'E_50001', // middleware/isResolvedUserMe - User not resolved
+  E_50002 = 'E_50002', // middleware/isResolvedUserMe - Not authenticated
 }
 
 interface ErrorOpts {

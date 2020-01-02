@@ -67,7 +67,7 @@ export class UserModel {
     return user;
   }
 
-  async updateUser(userId: string, payload: { name?: string; email?: string; password?: string; status?: string }): Promise<User> {
+  async updateUser(userId: string, payload: { name?: string; email?: string; password?: string; status?: UserStatus }): Promise<User> {
     this.logger.verbose('updateUser(', userId, payload, ')');
     const updateUserProps = _.defaults(_.pick(payload, ['name', 'email', 'status']), {
       updatedAt: new Date(),

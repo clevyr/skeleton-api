@@ -1,10 +1,11 @@
 import server from './server';
+import logger from './utils/logger';
 
 (async () => {
   try {
     await server.start();
 
   } catch (error) {
-    console.error(error);
+    logger.error(error);
   }
 })();
