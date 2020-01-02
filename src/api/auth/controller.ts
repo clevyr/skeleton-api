@@ -2,7 +2,7 @@ import Joi from 'joi';
 import { Context } from 'koa';
 
 import isAuth from '../../middleware/isAuth';
-import { UserError } from '../../utils/errors';
+import { UserError, ErrorCode } from '../../utils/errors';
 import { Logger } from '../../utils/logger';
 import userModel from '../user/model';
 import { serializeUser } from '../user/utils';
@@ -11,7 +11,7 @@ import { comparePassword, createAuthToken } from './utils';
 export class AuthController {
   private logger = new Logger('AuthController');
 
-  async authenticate(ctx: Context, next: any) {
+  async authenticate(ctx: Context) {
     this.logger.verbose('authenticate(', ctx.request.body, ')');
     await this.validateAuthenticate(ctx);
 
@@ -26,7 +26,7 @@ export class AuthController {
     this.logger.verbose('getAuthenticated()');
     await isAuth(ctx);
 
-    const serializedUser = serializeUser(ctx.state.user);
+    const serializedUser = serializeUser(ctx.state.auth);
 
     return ctx.success({ data: serializedUser });
   }
@@ -36,15 +36,15 @@ export class AuthController {
       email: Joi.string().required(),
       password: Joi.string().required(),
     });
-    if (error) throw new UserError({ errorCode: 40003, message: 'Validation Error', data: error });
+    if (error) throw new UserError({ errorCode: ErrorCode.E_40002, message: 'Validation Error', data: error });
 
     const { email, password } = ctx.request.body;
 
     const user = await userModel.getUserByEmail(email);
-    if (!user) throw new UserError({ errorCode: 40004, message: 'Invalid auth credentials' });
+    if (!user) throw new UserError({ errorCode: ErrorCode.E_40003, message: 'Invalid auth credentials' });
 
     if (!await comparePassword(password, user.password)) {
-      throw new UserError({ errorCode: 40005, message: 'Invalid auth credentials' });
+      throw new UserError({ errorCode: ErrorCode.E_40004, message: 'Invalid auth credentials' });
     }
   }
 }

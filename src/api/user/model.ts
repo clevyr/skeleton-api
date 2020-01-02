@@ -13,7 +13,7 @@ export enum UserStatus {
 
 export interface User {
   id: string;
-  username: string;
+  name: string;
   email: string;
   password: string;
   status: string;
@@ -23,7 +23,7 @@ export interface User {
 
 export interface SerializedUser {
   id: string;
-  username: string;
+  name: string;
   email: string;
   status: string;
 }
@@ -38,9 +38,9 @@ export class UserModel {
     return users;
   }
 
-  async createUser(payload: { username: string; email: string; password: string }): Promise<User> {
+  async createUser(payload: { name: string; email: string; password: string }): Promise<User> {
     this.logger.verbose('createUser(', payload, ')');
-    const newUserProps = _.defaults(_.pick(payload, ['username', 'email']), {
+    const newUserProps = _.defaults(_.pick(payload, ['name', 'email']), {
       id: uuid(),
       password: await hashPassword(payload.password),
       status: 'pending',
@@ -67,16 +67,9 @@ export class UserModel {
     return user;
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    this.logger.verbose('getUserByUsername(', username, ')');
-    const [user]: User[] = await database('user').select().where({ username });
-
-    return user;
-  }
-
-  async updateUser(userId: string, payload: { username?: string; email?: string; password?: string; status?: string }): Promise<User> {
+  async updateUser(userId: string, payload: { name?: string; email?: string; password?: string; status?: string }): Promise<User> {
     this.logger.verbose('updateUser(', userId, payload, ')');
-    const updateUserProps = _.defaults(_.pick(payload, ['username', 'email', 'status']), {
+    const updateUserProps = _.defaults(_.pick(payload, ['name', 'email', 'status']), {
       updatedAt: new Date(),
     });
 
