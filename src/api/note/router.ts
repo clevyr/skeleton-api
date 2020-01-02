@@ -1,4 +1,4 @@
-import Router from 'koa-router';
+import Router from '@koa/router';
 import noteController from './controller';
 
 export class NoteRouter {

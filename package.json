@@ -4,10 +4,15 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "NODE_CONFIG_DIR=./dist/config node dist/index.js",
+    "start:watch": "NODE_CONFIG_DIR=./dist/config nodemon dist/index.js",
     "build": "tsc",
-    "watch": "tsc -w",
-    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix"
+    "build:watch": "tsc -w",
+    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "preknex": "npm run build",
+    "knex": "NODE_CONFIG_DIR=../config knex --knexfile dist/database/knexfile.js",
+    "migrate": "npm run knex -- migrate:latest",
+    "seed": "npm run knex -- seed:run"
   },
   "repository": {
     "type": "git",
@@ -16,15 +21,45 @@
   "author": "Garrett",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^3.0.0",
+    "@koa/router": "^8.0.5",
+    "bcryptjs": "^2.4.3",
+    "chalk": "^3.0.0",
+    "config": "^2.0.0",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.20.4",
     "koa": "^2.11.0",
-    "koa-router": "^7.4.0"
+    "koa-bodyparser": "^4.2.1",
+    "koa-compress": "^3.0.0",
+    "koa-conditional-get": "^2.0.0",
+    "koa-etag": "^3.0.0",
+    "koa-helmet": "^5.2.0",
+    "lodash": "^4.17.15",
+    "mysql2": "^2.0.2",
+    "strip-ansi": "^6.0.0",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/config": "0.0.36",
+    "@types/joi": "^14.3.4",
+    "@types/jsonwebtoken": "^8.3.5",
+    "@types/knex": "^0.16.1",
     "@types/koa": "^2.11.0",
-    "@types/koa-router": "^7.0.42",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-compress": "^2.0.9",
+    "@types/koa-conditional-get": "^2.0.0",
+    "@types/koa-etag": "^3.0.0",
+    "@types/koa-helmet": "^3.1.2",
+    "@types/koa__cors": "^2.2.3",
+    "@types/koa__router": "^8.0.2",
+    "@types/lodash": "^4.14.149",
+    "@types/uuid": "^3.4.6",
     "@typescript-eslint/eslint-plugin": "^2.12.0",
     "@typescript-eslint/parser": "^2.12.0",
     "eslint": "^6.7.2",
+    "nodemon": "^2.0.2",
     "typescript": "^3.7.3"
   }
 }

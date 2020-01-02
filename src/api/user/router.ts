@@ -1,4 +1,4 @@
-import Router from 'koa-router';
+import Router from '@koa/router';
 import userController from './controller';
 
 export class UserRouter {
@@ -6,7 +6,7 @@ export class UserRouter {
 
   constructor() {
     this.router
-      .get(   '/',        userController.getUsers.bind(userController))
+      .get(   '/',        userController.listUsers.bind(userController))
       .post(  '/',        userController.createUser.bind(userController))
       .get(   '/:userId', userController.getUser.bind(userController))
       .put(   '/:userId', userController.updateUser.bind(userController))

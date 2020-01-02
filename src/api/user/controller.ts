@@ -1,8 +1,18 @@
 import { Context } from 'koa';
 
+import userModel from './model';
+import { serializeUser } from './utils';
+import { Logger } from '../../utils/logger';
+
 export class UserController {
-  public getUsers(ctx: Context) {
-    ctx.throw(501);
+  private logger = new Logger('UserController');
+
+  public async listUsers(ctx: Context) {
+    this.logger.verbose('listUsers()');
+    const users = await userModel.listUsers();
+    const serializedUsers = users.map(serializeUser);
+
+    return ctx.success({ data: serializedUsers });
   }
 
   public createUser(ctx: Context) {

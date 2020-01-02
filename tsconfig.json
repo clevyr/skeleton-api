@@ -5,6 +5,7 @@
     "allowSyntheticDefaultImports": true,
     "target": "es6",
     "noImplicitAny": true,
+    "noImplicitReturns": true,
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
