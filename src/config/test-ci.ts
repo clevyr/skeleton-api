@@ -3,8 +3,8 @@ module.exports = {
   env: process.env.NODE_ENV || 'test',
   database: {
     user: 'root',
-    password: '',
-    database: 'circle_test',
+    password: 'password',
+    database: 'skeletontest',
   },
   logLevels: {
     default: 'error',
