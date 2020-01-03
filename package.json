@@ -1,7 +1,7 @@
 {
-  "name": "skeleton-monolithic",
+  "name": "skeleton-api",
   "version": "1.0.0",
-  "description": "Example monolithic NodeJS API",
+  "description": "Example monolithic API using Typescript & Koa",
   "main": "dist/index.js",
   "scripts": {
     "start": "NODE_CONFIG_DIR=./dist/config node dist/index.js",
@@ -16,9 +16,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/garrettjoecox/skeleton-monolithic"
+    "url": "https://github.com/clevyr/skeleton-api"
   },
-  "author": "Garrett",
+  "bugs": {
+    "url": "https://github.com/clevyr/skeleton-api/issues"
+  },
+  "homepage": "https://github.com/clevyr/skeleton-api#readme",
+  "author": "Garrett Cox <garrett@clevyr.com>",
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "^3.0.0",
