@@ -2,7 +2,7 @@
 module.exports = {
   env: process.env.NODE_ENV || 'test',
   database: {
-    host: '127.0.0.1',
+    port: process.env.DB_PORT || 3306,
     user: 'user',
     password: 'password',
     database: 'skeletontest',
