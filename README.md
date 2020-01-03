@@ -1,5 +1,6 @@
 # Skeleton API
 [![CircleCI](https://circleci.com/gh/clevyr/skeleton-api.svg?style=svg)](https://circleci.com/gh/clevyr/skeleton-api)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fclevyr%2Fskeleton-api%2Fbadge&label=Build&style=flat)](https://actions-badge.atrox.dev/clevyr/skeleton-api/goto)
 
 ### Prereqs:
   - [NodeJS >= 8.0.0](https://nodejs.org/en/)
