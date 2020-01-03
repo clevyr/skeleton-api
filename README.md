@@ -24,7 +24,7 @@
     },
   };
   ```
-  Note: the properties that have `Configure locally` should be changed!
+  Note: the properties that have `Configure locally` should be changed
 
   You will need to rebuild any config changes with `npm run build`
 

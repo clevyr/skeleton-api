@@ -47,4 +47,8 @@ jobs:
       run: npm run coverage:ci
       env:
         DB_PORT: ${{ job.services.mysql.ports[3306] }}
-
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: reports
+        path: reports
