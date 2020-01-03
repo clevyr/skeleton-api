@@ -1,4 +1,5 @@
 # Skeleton API
+[![CircleCI](https://circleci.com/gh/clevyr/skeleton-api.svg?style=svg)](https://circleci.com/gh/clevyr/skeleton-api)
 
 ### Prereqs:
   - [NodeJS >= 8.0.0](https://nodejs.org/en/)
