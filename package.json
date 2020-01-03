@@ -1,7 +1,7 @@
 {
   "name": "skeleton-monolithic",
   "version": "1.0.0",
-  "description": "",
+  "description": "Example monolithic NodeJS API",
   "main": "dist/index.js",
   "scripts": {
     "start": "NODE_CONFIG_DIR=./dist/config node dist/index.js",

@@ -15,12 +15,13 @@ export async function up(knex: Knex) {
     table.uuid('id').primary().notNullable();
     table.string('title').notNullable();
     table.text('content').notNullable();
+    table.uuid('authorId').references('id').inTable('user');
     table.timestamp('createdAt').defaultTo(knex.fn.now());
     table.timestamp('updatedAt').defaultTo(knex.fn.now());
   });
 }
 
 export async function down(knex: Knex) {
-  await knex.schema.dropTable('user');
   await knex.schema.dropTable('note');
+  await knex.schema.dropTable('user');
 }
