@@ -6,7 +6,10 @@ jobs:
       - image: circleci/node:9.11
         environment:
           - NODE_APP_INSTANCE=ci
-      - image: circleci/mysql:5.7.22
+      - image: mysql:5.7.22
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: skeletontest
     steps:
       - checkout
       - restore_cache:
