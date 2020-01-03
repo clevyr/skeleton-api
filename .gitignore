@@ -17,6 +17,7 @@ tmp
 public/css/main.css
 
 # Coverage reports
+reports
 coverage
 
 # API keys and secrets

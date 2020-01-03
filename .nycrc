@@ -1,0 +1,7 @@
+{
+  "temp-dir": "./reports/data/coverage",
+  "report-dir": "./reports/pretty/coverage",
+  "exclude": [
+    "dist/**/*.spec.js"
+  ]
+}

@@ -1,7 +1,7 @@
 module.exports = {
   env: process.env.NODE_ENV || 'test',
   database: {
-    database: 'skeleton-test',
+    database: 'skeletontest',
   },
   logLevels: {
     default: 'error',

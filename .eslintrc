@@ -5,6 +5,10 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "env": {
+    "node": true,
+    "mocha": true
+  },
   "rules": {
     "semi": ["error", "always"],
     "@typescript-eslint/explicit-function-return-type": "off",
