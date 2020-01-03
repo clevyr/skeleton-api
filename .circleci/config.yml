@@ -9,6 +9,8 @@ jobs:
       - image: mysql:5.7.22
         environment:
           MYSQL_ROOT_PASSWORD: password
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
           MYSQL_DATABASE: skeletontest
     steps:
       - checkout

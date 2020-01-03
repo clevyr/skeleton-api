@@ -2,7 +2,7 @@
 module.exports = {
   env: process.env.NODE_ENV || 'test',
   database: {
-    user: 'root',
+    user: 'user',
     password: 'password',
     database: 'skeletontest',
   },
