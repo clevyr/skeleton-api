@@ -6,7 +6,7 @@ jobs:
       - image: circleci/node:9.11
         environment:
           - NODE_APP_INSTANCE=ci
-      - image: mysql:5.7.22
+      - image: mariadb:10
         environment:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_USER: user
