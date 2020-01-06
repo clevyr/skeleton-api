@@ -38,7 +38,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
     - name: Install Deps
-      run: npm install
+      run: npm ci
     - name: Lint
       run: npm run lint:ci
     - name: Build
