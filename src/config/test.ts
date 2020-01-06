@@ -4,8 +4,8 @@ module.exports = {
     database: 'skeletontest',
   },
   logLevels: {
-    default: 'error',
-    HTTP: 'error',
-    Database: 'error',
+    default: 'silent',
+    HTTP: 'silent',
+    Database: 'silent',
   },
 };

@@ -2,6 +2,10 @@
   "temp-dir": "./reports/data/coverage",
   "report-dir": "./reports/pretty/coverage",
   "exclude": [
+    "dist/server.js",
+    "dist/database/**/*",
+    "dist/config/**/*",
+    "dist/utils/**/*",
     "dist/**/*.spec.js"
   ]
 }
