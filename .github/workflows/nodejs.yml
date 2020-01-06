@@ -47,6 +47,16 @@ jobs:
       run: npm run coverage:ci
       env:
         DB_PORT: ${{ job.services.mysql.ports[3306] }}
+    - uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: ${{ secrets.OUTPUT_AWS_S3_BUCKET }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.OUTPUT_AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.OUTPUT_AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: us-east-2
+        SOURCE_DIR: reports
+        DEST_DIR: ci/${{ github.repository }}/${{ github.sha }}/${{ matrix.node-version }}
     - name: Archive artifacts
       uses: actions/upload-artifact@v1
       with:
