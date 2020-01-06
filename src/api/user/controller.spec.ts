@@ -186,4 +186,276 @@ describe('UserController', () => {
       expect(body.data).to.not.have.any.keys('password');
     });
   });
+
+  describe('.getUser', () => {
+    it('should return a users information', async () => {
+      const user = users['UserController.getUser.1'];
+      const res = await request(api)
+        .get(`/api/users/${user.id}`)
+        .set('Authorization', `Bearer ${user.authToken}`);
+      const { status, data } = res.body;
+
+      expect(res.status).to.equal(200);
+      expect(status).to.equal('success');
+      expect(data).to.eql({
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        status: user.status,
+      });
+    });
+
+    it('should fail if an invalid user is specified', async () => {
+      const user = users['UserController.getUser.1'];
+      const invalidUser = randomUser();
+      const res = await request(api)
+        .get(`/api/users/${invalidUser.id}`)
+        .set('Authorization', `Bearer ${user.authToken}`);
+      const { status, errorCode } = res.body;
+
+      expect(res.status).to.equal(404);
+      expect(status).to.equal('fail');
+      expect(errorCode).to.equal(ErrorCode.E_40402);
+    });
+
+    it('should fail if the user is not authenticated', async () => {
+      const user1 = users['UserController.getUser.1'];
+      const res = await request(api)
+        .get(`/api/users/${user1.id}`);
+      const { status, errorCode } = res.body;
+
+      expect(res.status).to.equal(401);
+      expect(status).to.equal('fail');
+      expect(errorCode).to.equal(ErrorCode.E_40101);
+    });
+
+    it('should fail if the user is not the one authenticated', async () => {
+      const user1 = users['UserController.getUser.1'];
+      const user2 = users['UserController.getUser.2'];
+      const res = await request(api)
+        .get(`/api/users/${user1.id}`)
+        .set('Authorization', `Bearer ${user2.authToken}`);
+      const { status, errorCode } = res.body;
+
+      expect(res.status).to.equal(401);
+      expect(status).to.equal('fail');
+      expect(errorCode).to.equal(ErrorCode.E_40105);
+    });
+  });
+
+  describe('.updateUser', () => {
+    it('should update a user\'s information', async () => {
+      const newProps = randomUser();
+      const user = users['UserController.updateUser.1'];
+      const res = await request(api)
+        .put(`/api/users/${user.id}`)
+        .send({
+          name: newProps.name,
+        })
+        .set('Authorization', `Bearer ${user.authToken}`);
+      const { status, data } = res.body;
+
+      expect(res.status).to.equal(200);
+      expect(status).to.equal('success');
+      expect(data).to.eql({
+        id: user.id,
+        name: newProps.name,
+        email: user.email,
+        status: 'active',
+      });
+    });
+
+    it('should make a user pending if they input a new email', async () => {
+      const newProps = randomUser();
+      const user = users['UserController.updateUser.5'];
+      const res = await request(api)
+        .put(`/api/users/${user.id}`)
+        .send({
+          email: newProps.email,
+        })
+        .set('Authorization', `Bearer ${user.authToken}`);
+      const { status, data } = res.body;
+
+      expect(res.status).to.equal(200);
+      expect(status).to.equal('success');
+      expect(data).to.eql({
+        id: user.id,
+        name: user.name,
+        email: newProps.email,
+        status: 'pending',
+      });
+    });
+
+    it('should not make a user pending if they input the same email', async () => {
+      const user = users['UserController.updateUser.6'];
+      const res = await request(api)
+        .put(`/api/users/${user.id}`)
+        .send({
+          email: user.email,
+        })
+        .set('Authorization', `Bearer ${user.authToken}`);
+      const { status, data } = res.body;
+
+      expect(res.status).to.equal(200);
+      expect(status).to.equal('success');
+      expect(data).to.eql({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        status: 'active',
+      });
+    });
+
+    it('should fail if an invalid user is specified', async () => {
+      const user = users['UserController.updateUser.1'];
+      const newProps = randomUser();
+      const res = await request(api)
+        .put(`/api/users/${newProps.id}`)
+        .send({
+          name: newProps.name,
+        })
+        .set('Authorization', `Bearer ${user.authToken}`);
+      const { status, errorCode } = res.body;
+
+      expect(res.status).to.equal(404);
+      expect(status).to.equal('fail');
+      expect(errorCode).to.equal(ErrorCode.E_40402);
+    });
+
+    it('should fail if the user is not authenticated', async () => {
+      const user1 = users['UserController.updateUser.1'];
+      const newProps = randomUser();
+      const res = await request(api)
+        .put(`/api/users/${user1.id}`)
+        .send({
+          name: newProps.name,
+        });
+      const { status, errorCode } = res.body;
+
+      expect(res.status).to.equal(401);
+      expect(status).to.equal('fail');
+      expect(errorCode).to.equal(ErrorCode.E_40101);
+    });
+
+    it('should fail if the user being changed is not the one authenticated', async () => {
+      const user1 = users['UserController.updateUser.1'];
+      const user2 = users['UserController.updateUser.2'];
+      const newProps = randomUser();
+      const res = await request(api)
+        .put(`/api/users/${user1.id}`)
+        .send({
+          name: newProps.name,
+        })
+        .set('Authorization', `Bearer ${user2.authToken}`);
+      const { status, errorCode } = res.body;
+
+      expect(res.status).to.equal(401);
+      expect(status).to.equal('fail');
+      expect(errorCode).to.equal(ErrorCode.E_40105);
+    });
+
+    it('should fail if the email is not an email format', async () => {
+      const user = users['UserController.updateUser.2'];
+      const res = await request(api)
+        .put(`/api/users/${user.id}`)
+        .send({
+          email: 'invalid',
+        })
+        .set('Authorization', `Bearer ${user.authToken}`);
+      const { status, errorCode } = res.body;
+
+      expect(res.status).to.equal(400);
+      expect(status).to.equal('fail');
+      expect(errorCode).to.equal(ErrorCode.E_40005);
+    });
+
+    it('should fail if the password is too short', async () => {
+      const user = users['UserController.updateUser.2'];
+      const res = await request(api)
+        .put(`/api/users/${user.id}`)
+        .send({
+          password: 'short',
+        })
+        .set('Authorization', `Bearer ${user.authToken}`);
+      const { status, errorCode } = res.body;
+
+      expect(res.status).to.equal(400);
+      expect(status).to.equal('fail');
+      expect(errorCode).to.equal(ErrorCode.E_40005);
+    });
+
+    it('should fail if the email is already in use', async () => {
+      const user = users['UserController.updateUser.2'];
+      const res = await request(api)
+        .put(`/api/users/${user.id}`)
+        .send({
+          email: users['UserController.updateUser.3'].email,
+        })
+        .set('Authorization', `Bearer ${user.authToken}`);
+      const { status, errorCode } = res.body;
+
+      expect(res.status).to.equal(409);
+      expect(status).to.equal('fail');
+      expect(errorCode).to.equal(ErrorCode.E_40902);
+    });
+
+    it('should be fine if the user\'s existing properties are passed in', async () => {
+      const user = users['UserController.updateUser.2'];
+      const res = await request(api)
+        .put(`/api/users/${user.id}`)
+        .send({
+          name: user.name,
+          email: user.email,
+          password: user.password,
+        })
+        .set('Authorization', `Bearer ${user.authToken}`);
+      const { status, data } = res.body;
+
+      expect(res.status).to.equal(200);
+      expect(status).to.equal('success');
+      expect(data).to.eql({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        status: 'active',
+      });
+    });
+
+    it('should rehash the password so that they can successfully reauthenticate', async () => {
+      const user = users['UserController.updateUser.4'];
+      const newProps = randomUser();
+      const res1 = await request(api)
+        .put(`/api/users/${user.id}`)
+        .send({
+          password: newProps.password,
+        })
+        .set('Authorization', `Bearer ${user.authToken}`);
+
+      expect(res1.status).to.equal(200);
+      expect(res1.body.status).to.equal('success');
+
+      const res2 = await request(api)
+        .post('/api/auth')
+        .send({
+          email: user.email,
+          password: newProps.password,
+        });
+
+      expect(res2.status).to.equal(200);
+      expect(res2.body.status).to.equal('success');
+    });
+  });
+
+  describe('.deleteUser', () => {
+    it('should fail because it is not implemented', async () => {
+      const user = users['UserController.deleteUser.1'];
+      const res = await request(api)
+        .delete(`/api/users/${user.id}`)
+        .set('Authorization', `Bearer ${user.authToken}`);
+      const { status } = res.body;
+
+      expect(res.status).to.equal(500);
+      expect(status).to.equal('error');
+    });
+  });
 });

@@ -11,12 +11,15 @@ interface UserWithToken extends User {
 export const users: { [index: string]: UserWithToken } = {
   'UserController.listUsers.1': randomUser(),
   'UserController.createUser.1': randomUser(),
+  'UserController.getUser.1': randomUser(),
+  'UserController.getUser.2': randomUser(),
   'UserController.updateUser.1': randomUser(),
   'UserController.updateUser.2': randomUser(),
   'UserController.updateUser.3': randomUser(),
   'UserController.updateUser.4': randomUser(),
   'UserController.updateUser.5': randomUser(),
   'UserController.updateUser.6': randomUser(),
+  'UserController.deleteUser.1': randomUser(),
 
   'AuthController.authenticate.1': randomUser(),
   'AuthController.authenticate.2': randomUser(),
