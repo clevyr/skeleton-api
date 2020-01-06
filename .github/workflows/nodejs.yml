@@ -47,6 +47,12 @@ jobs:
       run: npm ci
     - name: Lint
       run: npm run lint:ci
+      continue-on-error: true
+    - name: Annotate Lint Results
+      uses: ataylorme/eslint-annotate-action@1.0.4
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        report-json: reports/data/lint/results.json
     - name: Build
       run: npm run build
     - name: Test
