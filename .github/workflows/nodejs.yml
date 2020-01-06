@@ -82,9 +82,9 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         message: |
-          CI results on ${{ github.sha }}
+          CI results for ${{ github.sha }}
 
-          | 8.x                                                                                                      | 10.x                                                                                                      | 12.x                                                                                                      |
-          |----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-          | [Coverage](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.event.number }}/8.x/coverage/index.html) | [Coverage](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.event.number }}/10.x/coverage/index.html) | [Coverage](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.event.number }}/12.x/coverage/index.html) |
+          | 8.x                                                                                                               | 10.x                                                                                                               | 12.x                                                                                                                  |
+          |-------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+          | [Coverage](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.event.number }}/8.x/coverage/index.html) | [Coverage](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.event.number }}/10.x/coverage/index.html) | [Coverage](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.event.number }}/12.x/coverage/index.html)    |
           | [Tests](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.event.number }}/8.x/tests/mochawesome.html) | [Tests](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.event.number }}/10.x/tests/mochawesome.html) | [Tests](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.sevent.numberha }}/12.x/tests/mochawesome.html) |
