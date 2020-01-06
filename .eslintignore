@@ -1,7 +1,7 @@
 # /node_modules/* in the project root is ignored by default
 # build artefacts
 dist/*
-coverage/*
+reports/*
 # data definition files
 **/*.d.ts
 # 3rd party libs
