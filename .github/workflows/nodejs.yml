@@ -69,7 +69,7 @@ jobs:
       uses: actions/upload-artifact@v1
       if: always()
       with:
-        name: reports
+        name: ${{ matrix.node-version }}-reports
         path: reports
 
   comment:
