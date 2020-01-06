@@ -49,7 +49,7 @@ jobs:
         DB_PORT: ${{ job.services.mysql.ports[3306] }}
     - name: Sync Results to S3
       uses: jakejarvis/s3-sync-action@master
-      if: always()
+      if: github.event_name == 'pull_request'
       with:
         args: --follow-symlinks --delete
       env:
@@ -58,7 +58,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.OUTPUT_AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: us-east-2
         SOURCE_DIR: reports/pretty
-        DEST_DIR: ci/${{ github.repository }}/${{ github.sha }}/${{ matrix.node-version }}
+        DEST_DIR: ci/${{ github.repository }}/${{ github.event.number }}/${{ matrix.node-version }}
     - name: Archive artifacts
       uses: actions/upload-artifact@v1
       if: always()
@@ -69,7 +69,7 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     needs: build
-    if: always()
+    if: github.event_name == 'pull_request'
     steps:
     - name: Comment CI Results
       uses: marocchino/sticky-pull-request-comment@v1
@@ -80,5 +80,5 @@ jobs:
 
           | 8.x                                                                                                      | 10.x                                                                                                      | 12.x                                                                                                      |
           |----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-          | [Coverage](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.sha }}/8.x/coverage/index.html) | [Coverage](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.sha }}/10.x/coverage/index.html) | [Coverage](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.sha }}/12.x/coverage/index.html) |
-          | [Tests](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.sha }}/8.x/tests/mochawesome.html) | [Tests](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.sha }}/10.x/tests/mochawesome.html) | [Tests](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.sha }}/12.x/tests/mochawesome.html) |
+          | [Coverage](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.event.number }}/8.x/coverage/index.html) | [Coverage](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.event.number }}/10.x/coverage/index.html) | [Coverage](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.event.number }}/12.x/coverage/index.html) |
+          | [Tests](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.event.number }}/8.x/tests/mochawesome.html) | [Tests](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.event.number }}/10.x/tests/mochawesome.html) | [Tests](https://cdn.clevyr.dev/ci/${{ github.repository }}/${{ github.sevent.numberha }}/12.x/tests/mochawesome.html) |
