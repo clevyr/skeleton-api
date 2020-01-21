@@ -2,7 +2,9 @@ module.exports = {
   env: process.env.NODE_ENV || 'development',
   port: process.env.PORT || 9000,
   jwtSecret: 'Configure locally',
-  exposeErrors: true,
+  jwtExpiration: 1000 * 60 * 5, // 5 minutes
+  key: 'Configure locally',
+  exposeErrors: false,
 
   database: {
     host: 'localhost',

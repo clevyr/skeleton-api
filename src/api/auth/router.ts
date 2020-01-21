@@ -11,11 +11,16 @@ export class AuthRouter {
       .get(
         '/',
         isAuth,
-        authController.getAuthenticated.bind(authController)
+        authController.getAuthenticated.bind(authController),
       )
       .post(
         '/',
-        authController.authenticate.bind(authController)
+        authController.authenticate.bind(authController),
+      )
+      .delete(
+        '/',
+        isAuth,
+        authController.logout.bind(authController),
       );
   }
 }

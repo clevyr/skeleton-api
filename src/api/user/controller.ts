@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 import _ from 'lodash';
-import Joi from 'joi';
+import Joi from '@hapi/joi';
 
 import userModel, { UserStatus } from './model';
 import { serializeUser } from './utils';
@@ -30,12 +30,20 @@ export class UserController {
   }
 
   private async validateCreateUser(ctx: Context) {
-    const { error } = Joi.validate(ctx.request.body, {
-      name: Joi.string(),
-      email: Joi.string().email().required(),
-      password: Joi.string().min(8).required(),
-    });
-    if (error) throw new UserError({ errorCode: ErrorCode.E_40001, message: 'Validation Error', data: error });
+    try {
+      Joi.assert(ctx.request.body, Joi.object({
+        name: Joi.string(),
+        email: Joi.string().email().required(),
+        password: Joi.string().min(8).required(),
+      }), {
+        abortEarly: false,
+        errors: {
+          label: false,
+        },
+      });
+    } catch (error) {
+      throw new UserError({ errorCode: ErrorCode.E_40001, message: 'Validation Error', data: error });
+    }
 
     const { email } = ctx.request.body;
     const existingEmail = await userModel.getUserByEmail(email);
@@ -66,13 +74,20 @@ export class UserController {
   }
 
   private async validateUpdateUser(ctx: Context) {
-    const { error } = Joi.validate(ctx.request.body, {
-      name: Joi.string(),
-      email: Joi.string().email(),
-      password: Joi.string().min(8),
-    });
-
-    if (error) throw new UserError({ errorCode: ErrorCode.E_40005, message: 'Validation Error', data: error });
+    try {
+      Joi.assert(ctx.request.body, Joi.object({
+        name: Joi.string(),
+        email: Joi.string().email(),
+        password: Joi.string().min(8),
+      }), {
+        abortEarly: false,
+        errors: {
+          label: false,
+        },
+      });
+    } catch (error) {
+      throw new UserError({ errorCode: ErrorCode.E_40005, message: 'Validation Error', data: error });
+    }
 
     const { email } = ctx.request.body;
     if (email && email !== ctx.state.user.email) {

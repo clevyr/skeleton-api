@@ -13,6 +13,9 @@ describe('middleware/isAuth', () => {
     const mockCtx: any = {
       status: 404,
       body: {},
+      cookies: {
+        get: sinon.fake(),
+      },
       request: {
         header: {},
       },
@@ -35,6 +38,9 @@ describe('middleware/isAuth', () => {
     const mockCtx: any = {
       status: 404,
       body: {},
+      cookies: {
+        get: sinon.fake(),
+      },
       request: {
         header: {
           authorization: `Bearer${token}`,
@@ -59,6 +65,9 @@ describe('middleware/isAuth', () => {
     const mockCtx: any = {
       status: 404,
       body: {},
+      cookies: {
+        get: sinon.fake(),
+      },
       request: {
         header: {
           authorization: `JWT ${token}`,
@@ -81,6 +90,9 @@ describe('middleware/isAuth', () => {
     const mockCtx: any = {
       status: 404,
       body: {},
+      cookies: {
+        get: sinon.fake(),
+      },
       request: {
         header: {
           authorization: 'Bearer Invalid',
@@ -105,6 +117,9 @@ describe('middleware/isAuth', () => {
     const mockCtx: any = {
       status: 404,
       body: {},
+      cookies: {
+        get: sinon.fake(),
+      },
       request: {
         header: {
           authorization: `Bearer ${token}`,
@@ -129,6 +144,9 @@ describe('middleware/isAuth', () => {
     const mockCtx: any = {
       status: 404,
       body: {},
+      cookies: {
+        get: sinon.fake(),
+      },
       state: {},
       request: {
         header: {
@@ -138,6 +156,30 @@ describe('middleware/isAuth', () => {
     };
 
     await isAuth(mockCtx, mockNext);
+
+    expect(mockCtx.state.auth).to.exist;
+    expect(mockCtx.state.auth.email).to.equal(user.email);
+    expect(mockCtx.state.auth.id).to.equal(user.id);
+  });
+
+  it('should run fine when not given a "next" method', async () => {
+    const user = users['middleware.isAuth.1'];
+    const token = createAuthToken(user);
+    const mockCtx: any = {
+      status: 404,
+      body: {},
+      cookies: {
+        get: sinon.fake(),
+      },
+      state: {},
+      request: {
+        header: {
+          authorization: `Bearer ${token}`,
+        },
+      },
+    };
+
+    await isAuth(mockCtx);
 
     expect(mockCtx.state.auth).to.exist;
     expect(mockCtx.state.auth.email).to.equal(user.email);

@@ -24,6 +24,7 @@ export const users: { [index: string]: UserWithToken } = {
   'AuthController.authenticate.1': randomUser(),
   'AuthController.authenticate.2': randomUser(),
   'AuthController.getAuthenticated.1': randomUser(),
+  'AuthController.logout.1': randomUser(),
 
   'middleware.isAuth.1': randomUser(),
 };

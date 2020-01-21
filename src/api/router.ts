@@ -7,7 +7,7 @@ import resolveUser from '../middleware/resolveUser';
 import resolveNote from '../middleware/resolveNote';
 
 export class ApiRouter {
-  public router: Router = new Router({ prefix: '/api' });
+  public router: Router = new Router();
 
   constructor() {
     this.router

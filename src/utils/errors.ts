@@ -11,7 +11,7 @@ export enum ErrorCode {
   E_40007 = 'E_40007', // NoteController.validateUpdateNote - Joi Error
 
   E_40100 = 'E_40100',
-  E_40101 = 'E_40101', // middleware/isAuth - No auth header found
+  E_40101 = 'E_40101', // middleware/isAuth - No auth header or cookie found
   E_40102 = 'E_40102', // middleware/isAuth - Invalid auth header format
   E_40103 = 'E_40103', // middleware/isAuth - Corrupted token
   E_40104 = 'E_40104', // middleware/isAuth - Invalid user ID in token

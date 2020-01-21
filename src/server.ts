@@ -31,12 +31,16 @@ export class Server {
   }
 
   private initializeMiddleware() {
+    this.koa.keys = [config.get('key')];
+
     this.koa
       .use(httpLogger)
       .use(handleError)
       .use(jsend)
       .use(helmet())
-      .use(cors())
+      .use(cors({
+        credentials: true,
+      }))
       .use(bodyParser())
       .use(compress())
       .use(conditional())

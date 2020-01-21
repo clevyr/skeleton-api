@@ -11,7 +11,7 @@ describe('UserController', () => {
   describe('.listUsers', () => {
     it('should fail if you are not authenticated', async () => {
       const { body, status } = await request(api)
-        .get('/api/users');
+        .get('/users');
 
       expect(status).to.equal(401);
       expect(body).to.have.property('status', 'fail');
@@ -21,7 +21,7 @@ describe('UserController', () => {
     it('should return a list of users', async () => {
       const user = users['UserController.listUsers.1'];
       const { body, status } = await request(api)
-        .get('/api/users')
+        .get('/users')
         .set('Authorization', `Bearer ${user.authToken}`);
 
       expect(status).to.equal(200);
@@ -32,7 +32,7 @@ describe('UserController', () => {
     it('should not return private information about each user', async () => {
       const user = users['UserController.listUsers.1'];
       const { body, status } = await request(api)
-        .get('/api/users')
+        .get('/users')
         .set('Authorization', `Bearer ${user.authToken}`);
 
       expect(status).to.equal(200);
@@ -45,7 +45,7 @@ describe('UserController', () => {
     it('should return the appropriate information about each user', async () => {
       const user = users['UserController.listUsers.1'];
       const { body, status } = await request(api)
-        .get('/api/users')
+        .get('/users')
         .set('Authorization', `Bearer ${user.authToken}`);
 
       expect(status).to.equal(200);
@@ -60,7 +60,7 @@ describe('UserController', () => {
     it('should create a user', async () => {
       const user = randomUser();
       const res = await request(api)
-        .post('/api/users')
+        .post('/users')
         .send({
           name: user.name,
           email: user.email,
@@ -79,7 +79,7 @@ describe('UserController', () => {
     it('should fail if no email is provided', async () => {
       const user = randomUser();
       const res = await request(api)
-        .post('/api/users')
+        .post('/users')
         .send({
           name: user.name,
           password: user.password,
@@ -94,7 +94,7 @@ describe('UserController', () => {
     it('should fail if no password is provided', async () => {
       const user = randomUser();
       const res = await request(api)
-        .post('/api/users')
+        .post('/users')
         .send({
           name: user.name,
           email: user.email,
@@ -109,7 +109,7 @@ describe('UserController', () => {
     it('should fail if the email is not an email format', async () => {
       const user = randomUser();
       const res = await request(api)
-        .post('/api/users')
+        .post('/users')
         .send({
           name: user.name,
           email: 'invalid',
@@ -125,7 +125,7 @@ describe('UserController', () => {
     it('should fail if the password is too short', async () => {
       const user = randomUser();
       const res = await request(api)
-        .post('/api/users')
+        .post('/users')
         .send({
           name: user.name,
           email: user.email,
@@ -141,7 +141,7 @@ describe('UserController', () => {
     it('should fail if the email is already in use', async () => {
       const user = randomUser();
       const res = await request(api)
-        .post('/api/users')
+        .post('/users')
         .send({
           name: user.name,
           email: users['UserController.createUser.1'].email,
@@ -157,7 +157,7 @@ describe('UserController', () => {
     it('should fail if you specify any other properties', async () => {
       const user = randomUser();
       const res = await request(api)
-        .post('/api/users')
+        .post('/users')
         .send({
           id: user.id,
           name: user.name,
@@ -174,7 +174,7 @@ describe('UserController', () => {
     it('should not return any private information about the created user', async () => {
       const user = randomUser();
       const { body, status } = await request(api)
-        .post('/api/users')
+        .post('/users')
         .send({
           name: user.name,
           email: user.email,
@@ -191,7 +191,7 @@ describe('UserController', () => {
     it('should return a users information', async () => {
       const user = users['UserController.getUser.1'];
       const res = await request(api)
-        .get(`/api/users/${user.id}`)
+        .get(`/users/${user.id}`)
         .set('Authorization', `Bearer ${user.authToken}`);
       const { status, data } = res.body;
 
@@ -209,7 +209,7 @@ describe('UserController', () => {
       const user = users['UserController.getUser.1'];
       const invalidUser = randomUser();
       const res = await request(api)
-        .get(`/api/users/${invalidUser.id}`)
+        .get(`/users/${invalidUser.id}`)
         .set('Authorization', `Bearer ${user.authToken}`);
       const { status, errorCode } = res.body;
 
@@ -221,7 +221,7 @@ describe('UserController', () => {
     it('should fail if the user is not authenticated', async () => {
       const user1 = users['UserController.getUser.1'];
       const res = await request(api)
-        .get(`/api/users/${user1.id}`);
+        .get(`/users/${user1.id}`);
       const { status, errorCode } = res.body;
 
       expect(res.status).to.equal(401);
@@ -233,7 +233,7 @@ describe('UserController', () => {
       const user1 = users['UserController.getUser.1'];
       const user2 = users['UserController.getUser.2'];
       const res = await request(api)
-        .get(`/api/users/${user1.id}`)
+        .get(`/users/${user1.id}`)
         .set('Authorization', `Bearer ${user2.authToken}`);
       const { status, errorCode } = res.body;
 
@@ -248,7 +248,7 @@ describe('UserController', () => {
       const newProps = randomUser();
       const user = users['UserController.updateUser.1'];
       const res = await request(api)
-        .put(`/api/users/${user.id}`)
+        .put(`/users/${user.id}`)
         .send({
           name: newProps.name,
         })
@@ -269,7 +269,7 @@ describe('UserController', () => {
       const newProps = randomUser();
       const user = users['UserController.updateUser.5'];
       const res = await request(api)
-        .put(`/api/users/${user.id}`)
+        .put(`/users/${user.id}`)
         .send({
           email: newProps.email,
         })
@@ -289,7 +289,7 @@ describe('UserController', () => {
     it('should not make a user pending if they input the same email', async () => {
       const user = users['UserController.updateUser.6'];
       const res = await request(api)
-        .put(`/api/users/${user.id}`)
+        .put(`/users/${user.id}`)
         .send({
           email: user.email,
         })
@@ -310,7 +310,7 @@ describe('UserController', () => {
       const user = users['UserController.updateUser.1'];
       const newProps = randomUser();
       const res = await request(api)
-        .put(`/api/users/${newProps.id}`)
+        .put(`/users/${newProps.id}`)
         .send({
           name: newProps.name,
         })
@@ -326,7 +326,7 @@ describe('UserController', () => {
       const user1 = users['UserController.updateUser.1'];
       const newProps = randomUser();
       const res = await request(api)
-        .put(`/api/users/${user1.id}`)
+        .put(`/users/${user1.id}`)
         .send({
           name: newProps.name,
         });
@@ -342,7 +342,7 @@ describe('UserController', () => {
       const user2 = users['UserController.updateUser.2'];
       const newProps = randomUser();
       const res = await request(api)
-        .put(`/api/users/${user1.id}`)
+        .put(`/users/${user1.id}`)
         .send({
           name: newProps.name,
         })
@@ -357,7 +357,7 @@ describe('UserController', () => {
     it('should fail if the email is not an email format', async () => {
       const user = users['UserController.updateUser.2'];
       const res = await request(api)
-        .put(`/api/users/${user.id}`)
+        .put(`/users/${user.id}`)
         .send({
           email: 'invalid',
         })
@@ -372,7 +372,7 @@ describe('UserController', () => {
     it('should fail if the password is too short', async () => {
       const user = users['UserController.updateUser.2'];
       const res = await request(api)
-        .put(`/api/users/${user.id}`)
+        .put(`/users/${user.id}`)
         .send({
           password: 'short',
         })
@@ -387,7 +387,7 @@ describe('UserController', () => {
     it('should fail if the email is already in use', async () => {
       const user = users['UserController.updateUser.2'];
       const res = await request(api)
-        .put(`/api/users/${user.id}`)
+        .put(`/users/${user.id}`)
         .send({
           email: users['UserController.updateUser.3'].email,
         })
@@ -402,7 +402,7 @@ describe('UserController', () => {
     it('should be fine if the user\'s existing properties are passed in', async () => {
       const user = users['UserController.updateUser.2'];
       const res = await request(api)
-        .put(`/api/users/${user.id}`)
+        .put(`/users/${user.id}`)
         .send({
           name: user.name,
           email: user.email,
@@ -425,7 +425,7 @@ describe('UserController', () => {
       const user = users['UserController.updateUser.4'];
       const newProps = randomUser();
       const res1 = await request(api)
-        .put(`/api/users/${user.id}`)
+        .put(`/users/${user.id}`)
         .send({
           password: newProps.password,
         })
@@ -435,7 +435,7 @@ describe('UserController', () => {
       expect(res1.body.status).to.equal('success');
 
       const res2 = await request(api)
-        .post('/api/auth')
+        .post('/auth')
         .send({
           email: user.email,
           password: newProps.password,
@@ -450,7 +450,7 @@ describe('UserController', () => {
     it('should fail because it is not implemented', async () => {
       const user = users['UserController.deleteUser.1'];
       const res = await request(api)
-        .delete(`/api/users/${user.id}`)
+        .delete(`/users/${user.id}`)
         .set('Authorization', `Bearer ${user.authToken}`);
       const { status } = res.body;
 

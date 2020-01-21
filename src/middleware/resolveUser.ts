@@ -13,5 +13,5 @@ export default async function resolveUser(userId: string, ctx: Ctx, next?: Funct
 
   ctx.state.user = user;
 
-  return next ? next() : Promise.resolve();
+  return next();
 }

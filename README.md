@@ -30,3 +30,6 @@
 
 ### Contribution
   You can contribute to this repository by either submitting issues/feature requests on the issues tab at the top of the page, or by submitting your own changes via a Pull Request, both of which will be reviewed by the repository maintainers.
+
+### Testing
+  Tests can be run with `npm run test`, and run with code coverage using `npm run coverage`. The tests by default depend on a database called `skeletontest` existing, and will use your credentials from `local.ts` to authenticate.

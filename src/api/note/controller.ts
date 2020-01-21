@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import Joi from 'joi';
+import Joi from '@hapi/joi';
 import _ from 'lodash';
 
 import { Logger } from '../../utils/logger';
@@ -29,11 +29,19 @@ export class NoteController {
   }
 
   private async validateCreateNote(ctx: Context) {
-    const { error } = Joi.validate(ctx.request.body, {
-      title: Joi.string().required(),
-      content: Joi.string(),
-    });
-    if (error) throw new UserError({ errorCode: ErrorCode.E_40006, message: 'Validation Error', data: error });
+    try {
+      Joi.assert(ctx.request.body, Joi.object({
+        title: Joi.string().required(),
+        content: Joi.string(),
+      }), {
+        abortEarly: false,
+        errors: {
+          label: false,
+        },
+      });
+    } catch (error) {
+      throw new UserError({ errorCode: ErrorCode.E_40006, message: 'Validation Error', data: error });
+    }
   }
 
   public async getNote(ctx: Context) {
@@ -53,11 +61,19 @@ export class NoteController {
   }
 
   private async validateUpdateNote(ctx: Context) {
-    const { error } = Joi.validate(ctx.request.body, {
-      title: Joi.string().required(),
-      content: Joi.string(),
-    });
-    if (error) throw new UserError({ errorCode: ErrorCode.E_40007, message: 'Validation Error', data: error });
+    try {
+      Joi.assert(ctx.request.body, Joi.object({
+        title: Joi.string().required(),
+        content: Joi.string(),
+      }), {
+        abortEarly: false,
+        errors: {
+          label: false,
+        },
+      });
+    } catch (error) {
+      throw new UserError({ errorCode: ErrorCode.E_40007, message: 'Validation Error', data: error });
+    }
   }
 
   public async deleteNote(ctx: Context) {

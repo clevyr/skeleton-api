@@ -13,5 +13,5 @@ export default async function resolveNote(noteId: string, ctx: Ctx, next?: Funct
 
   ctx.state.note = note;
 
-  return next ? next() : Promise.resolve();
+  return next();
 }
