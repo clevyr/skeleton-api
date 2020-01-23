@@ -31,7 +31,7 @@
   "author": "Garrett Cox <garrett@clevyr.com>",
   "license": "ISC",
   "dependencies": {
-    "@hapi/joi": "^17.0.2",
+    "@hapi/joi": "^16.1.8",
     "@koa/cors": "^3.0.0",
     "@koa/router": "^8.0.5",
     "bcryptjs": "^2.4.3",
