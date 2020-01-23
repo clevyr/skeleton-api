@@ -4,7 +4,7 @@ module.exports = {
   jwtSecret: 'Configure locally',
   jwtExpiration: 1000 * 60 * 5, // 5 minutes
   key: 'Configure locally',
-  exposeErrors: false,
+  exposeErrors: true,
 
   database: {
     host: 'localhost',
