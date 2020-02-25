@@ -64,7 +64,7 @@ export class UserController {
 
     const payload: { name?: string; email?: string; password?: string; status?: UserStatus } = _.pick(ctx.request.body, ['name', 'email', 'password']);
     if (payload.email && payload.email !== ctx.state.user.email) {
-      payload.status = UserStatus.pending;
+      payload.status = UserStatus.PENDING;
     }
 
     const user = await userModel.updateUser(ctx.params.userId, payload);

@@ -10,7 +10,7 @@ export async function up(knex: Knex) {
     table.string('password').notNullable();
     table.timestamp('createdAt').defaultTo(knex.fn.now());
     table.timestamp('updatedAt').defaultTo(knex.fn.now());
-    table.enum('status', [UserStatus.pending, UserStatus.active, UserStatus.disabled]).notNullable().defaultTo(UserStatus.pending);
+    table.enum('status', [UserStatus.PENDING, UserStatus.ACTIVE, UserStatus.DISABLED]).notNullable().defaultTo(UserStatus.PENDING);
   });
 
   await knex.schema.createTable('note', (table) => {

@@ -6,9 +6,9 @@ import { Logger } from '../../utils/logger';
 import { hashPassword } from '../auth/utils';
 
 export enum UserStatus {
-  pending = 'PENDING',
-  active = 'ACTIVE',
-  disabled = 'DISABLED',
+  PENDING = 'PENDING',
+  ACTIVE = 'ACTIVE',
+  DISABLED = 'DISABLED',
 }
 
 export interface User {
@@ -49,7 +49,7 @@ export class UserModel {
     const newUserProps = _.defaults(_.pick(input, ['name', 'email']), {
       id: uuid(),
       password: await hashPassword(input.password),
-      status: 'pending',
+      status: UserStatus.PENDING,
       createdAt: new Date(),
       updatedAt: new Date(),
     });

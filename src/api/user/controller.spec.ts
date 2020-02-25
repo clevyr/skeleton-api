@@ -6,7 +6,7 @@ import request from 'supertest';
 import { users } from '../../database/seeds/test/initial';
 import api from '../../index.spec';
 import { ErrorCode } from '../../utils/errors';
-import { User } from './model';
+import { User, UserStatus } from './model';
 import { randomUser } from './utils';
 
 describe('UserController', () => {
@@ -263,7 +263,7 @@ describe('UserController', () => {
         id: user.id,
         name: newProps.name,
         email: user.email,
-        status: 'active',
+        status: UserStatus.ACTIVE,
       });
     });
 
@@ -284,7 +284,7 @@ describe('UserController', () => {
         id: user.id,
         name: user.name,
         email: newProps.email,
-        status: 'pending',
+        status: UserStatus.PENDING,
       });
     });
 
@@ -304,7 +304,7 @@ describe('UserController', () => {
         id: user.id,
         name: user.name,
         email: user.email,
-        status: 'active',
+        status: UserStatus.ACTIVE,
       });
     });
 
@@ -419,7 +419,7 @@ describe('UserController', () => {
         id: user.id,
         name: user.name,
         email: user.email,
-        status: 'active',
+        status: UserStatus.ACTIVE,
       });
     });
 

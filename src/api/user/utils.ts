@@ -16,7 +16,7 @@ export function randomUser(overrides = {}): User {
     name: chance.word({ length: 6 }),
     email: chance.email(),
     password: chance.word({ length: 8 }),
-    status: UserStatus.active,
+    status: UserStatus.ACTIVE,
     createdAt: new Date(),
     updatedAt: new Date(),
   }, overrides);
