@@ -1,11 +1,13 @@
+import 'mocha';
+
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import { ErrorCode, UnauthorizedError } from '../utils/errors';
-import isAuth from './isAuth';
 import { createAuthToken } from '../api/auth/utils';
 import { randomUser } from '../api/user/utils';
 import { users } from '../database/seeds/test/initial';
+import { ErrorCode, UnauthorizedError } from '../utils/errors';
+import isAuth from './isAuth';
 
 describe('middleware/isAuth', () => {
   it('should fail if there is no Authorization header', async () => {

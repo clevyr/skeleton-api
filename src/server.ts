@@ -1,15 +1,15 @@
-import Koa from 'koa';
-import config from 'config';
 import cors from '@koa/cors';
+import config from 'config';
+import Koa from 'koa';
+import bodyParser from 'koa-bodyparser';
 import compress from 'koa-compress';
 import conditional from 'koa-conditional-get';
 import etag from 'koa-etag';
 import helmet from 'koa-helmet';
-import bodyParser from 'koa-bodyparser';
 
 import apiRouter from './api/router';
-import httpLogger from './middleware/httpLogger';
 import handleError from './middleware/handleError';
+import httpLogger from './middleware/httpLogger';
 import jsend from './middleware/jsend';
 import logger from './utils/logger';
 

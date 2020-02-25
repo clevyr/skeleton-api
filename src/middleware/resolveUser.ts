@@ -1,7 +1,7 @@
 import { Context as Ctx } from 'koa';
 
 import userModel from '../api/user/model';
-import { NotFoundError, ErrorCode } from '../utils/errors';
+import { ErrorCode, NotFoundError } from '../utils/errors';
 import { Logger } from '../utils/logger';
 
 const logger = new Logger('Middleware');

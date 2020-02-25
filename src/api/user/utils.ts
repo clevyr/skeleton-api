@@ -1,5 +1,5 @@
-import _ from 'lodash';
 import Chance from 'chance';
+import _ from 'lodash';
 import uuid from 'uuid/v4';
 
 import { SerializedUser, User, UserStatus } from './model';

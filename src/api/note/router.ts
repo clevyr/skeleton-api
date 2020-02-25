@@ -1,7 +1,8 @@
 import Router from '@koa/router';
-import noteController from './controller';
+
 import isAuth from '../../middleware/isAuth';
 import isResolvedNoteMine from '../../middleware/isResolvedNoteMine';
+import noteController from './controller';
 
 export class NoteRouter {
   public router: Router = new Router({ prefix: '/notes' });

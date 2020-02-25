@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 
-import { NotFoundError, UserError, ErrorCode } from '../utils/errors';
+import { ErrorCode, NotFoundError, UserError } from '../utils/errors';
 import logger from '../utils/logger';
 
 export default async function handleError(ctx: Context, next: Function) {

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import uuid from 'uuid/v4';
 
-import { Logger } from '../../utils/logger';
 import database from '../../database';
+import { Logger } from '../../utils/logger';
 
 export interface Note {
   id: string;

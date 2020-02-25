@@ -1,7 +1,9 @@
+import 'mocha';
+
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import { NotFoundError, UserError, ErrorCode } from '../utils/errors';
+import { ErrorCode, NotFoundError, UserError } from '../utils/errors';
 import handleError from './handleError';
 
 describe('middleware/handleError', () => {

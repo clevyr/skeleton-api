@@ -1,7 +1,7 @@
 import Router from '@koa/router';
 
-import authController from './controller';
 import isAuth from '../../middleware/isAuth';
+import authController from './controller';
 
 export class AuthRouter {
   public router: Router = new Router({ prefix: '/auth' });

@@ -1,8 +1,8 @@
 import Router from '@koa/router';
 
-import userController from './controller';
 import isAuth from '../../middleware/isAuth';
 import isResolvedUserMe from '../../middleware/isResolvedUserMe';
+import userController from './controller';
 
 export class UserRouter {
   public router: Router = new Router({ prefix: '/users' });

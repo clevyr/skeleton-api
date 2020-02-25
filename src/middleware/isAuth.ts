@@ -2,10 +2,10 @@ import config from 'config';
 import { verify } from 'jsonwebtoken';
 import { Context as Ctx } from 'koa';
 
-import userModel from '../api/user/model';
-import { UnauthorizedError, ErrorCode } from '../utils/errors';
-import { Logger } from '../utils/logger';
 import { setAuthCookie } from '../api/auth/utils';
+import userModel from '../api/user/model';
+import { ErrorCode, UnauthorizedError } from '../utils/errors';
+import { Logger } from '../utils/logger';
 
 const logger = new Logger('Middleware');
 

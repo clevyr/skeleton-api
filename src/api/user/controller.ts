@@ -1,11 +1,11 @@
+import Joi from '@hapi/joi';
 import { Context } from 'koa';
 import _ from 'lodash';
-import Joi from '@hapi/joi';
 
+import { ConflictError, ErrorCode, UserError } from '../../utils/errors';
+import { Logger } from '../../utils/logger';
 import userModel, { UserStatus } from './model';
 import { serializeUser } from './utils';
-import { Logger } from '../../utils/logger';
-import { UserError, ErrorCode, ConflictError } from '../../utils/errors';
 
 export class UserController {
   private logger = new Logger('UserController');

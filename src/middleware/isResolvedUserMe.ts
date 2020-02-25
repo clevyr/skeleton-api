@@ -1,6 +1,6 @@
 import { Context as Ctx } from 'koa';
 
-import { UnauthorizedError, ErrorCode, BaseError } from '../utils/errors';
+import { BaseError, ErrorCode, UnauthorizedError } from '../utils/errors';
 import { Logger } from '../utils/logger';
 
 const logger = new Logger('Middleware');

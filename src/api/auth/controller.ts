@@ -1,7 +1,7 @@
 import Joi from '@hapi/joi';
 import { Context } from 'koa';
 
-import { UserError, ErrorCode } from '../../utils/errors';
+import { ErrorCode, UserError } from '../../utils/errors';
 import { Logger } from '../../utils/logger';
 import userModel from '../user/model';
 import { serializeUser } from '../user/utils';

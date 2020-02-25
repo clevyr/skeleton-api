@@ -1,9 +1,11 @@
+import 'mocha';
+
 import { expect } from 'chai';
 import request from 'supertest';
 
+import { users } from '../../database/seeds/test/initial';
 import api from '../../index.spec';
 import { ErrorCode } from '../../utils/errors';
-import { users } from '../../database/seeds/test/initial';
 import { User } from './model';
 import { randomUser } from './utils';
 

@@ -1,10 +1,10 @@
-import { Context } from 'koa';
 import Joi from '@hapi/joi';
+import { Context } from 'koa';
 import _ from 'lodash';
 
+import { ErrorCode, UserError } from '../../utils/errors';
 import { Logger } from '../../utils/logger';
 import noteModel from './model';
-import { UserError, ErrorCode } from '../../utils/errors';
 
 export class NoteController {
   private logger = new Logger('NoteController');

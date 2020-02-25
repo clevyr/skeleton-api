@@ -1,10 +1,10 @@
 import Router from '@koa/router';
 
-import authRouter from './auth/router';
-import userRouter from './user/router';
-import noteRouter from './note/router';
-import resolveUser from '../middleware/resolveUser';
 import resolveNote from '../middleware/resolveNote';
+import resolveUser from '../middleware/resolveUser';
+import authRouter from './auth/router';
+import noteRouter from './note/router';
+import userRouter from './user/router';
 
 export class ApiRouter {
   public router: Router = new Router();

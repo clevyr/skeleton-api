@@ -1,8 +1,10 @@
+import 'mocha';
+
 import { expect } from 'chai';
 import config from 'config';
 import sinon from 'sinon';
 
-import { BaseError, UserError, ErrorCode } from '../utils/errors';
+import { BaseError, ErrorCode, UserError } from '../utils/errors';
 import jsend from './jsend';
 
 describe('middleware/jsend', () => {
