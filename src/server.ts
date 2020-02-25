@@ -7,6 +7,7 @@ import conditional from 'koa-conditional-get';
 import etag from 'koa-etag';
 import helmet from 'koa-helmet';
 
+import graphql from './api/graphql';
 import apiRouter from './api/router';
 import handleError from './middleware/handleError';
 import httpLogger from './middleware/httpLogger';
@@ -19,7 +20,9 @@ export class Server {
   constructor() {
     this.initializeMiddleware();
 
-    this.koa.use(apiRouter.router.routes());
+    this.koa
+      .use(apiRouter.router.routes())
+      .use(graphql.apolloServer.getMiddleware());
   }
 
   public async start(): Promise<void> {

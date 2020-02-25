@@ -1,5 +1,7 @@
 import * as Knex from 'knex';
 
+import { UserStatus } from '../../api/user/model';
+
 export async function up(knex: Knex) {
   await knex.schema.createTable('user', (table) => {
     table.uuid('id').primary().notNullable();
@@ -8,7 +10,7 @@ export async function up(knex: Knex) {
     table.string('password').notNullable();
     table.timestamp('createdAt').defaultTo(knex.fn.now());
     table.timestamp('updatedAt').defaultTo(knex.fn.now());
-    table.enum('status', ['pending', 'active', 'disabled']).notNullable().defaultTo('pending');
+    table.enum('status', [UserStatus.pending, UserStatus.active, UserStatus.disabled]).notNullable().defaultTo(UserStatus.pending);
   });
 
   await knex.schema.createTable('note', (table) => {

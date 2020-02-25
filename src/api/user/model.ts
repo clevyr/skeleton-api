@@ -6,14 +6,14 @@ import { Logger } from '../../utils/logger';
 import { hashPassword } from '../auth/utils';
 
 export enum UserStatus {
-  pending = 'pending',
-  active = 'active',
-  disabled = 'disabled',
+  pending = 'PENDING',
+  active = 'ACTIVE',
+  disabled = 'DISABLED',
 }
 
 export interface User {
   id: string;
-  name: string;
+  name?: string;
   email: string;
   password: string;
   status: string;
@@ -23,9 +23,15 @@ export interface User {
 
 export interface SerializedUser {
   id: string;
-  name: string;
+  name?: string;
   email: string;
   status: string;
+}
+
+export interface CreateUserInput {
+  name?: string;
+  email: string;
+  password: string;
 }
 
 export class UserModel {
@@ -38,11 +44,11 @@ export class UserModel {
     return users;
   }
 
-  async createUser(payload: { name: string; email: string; password: string }): Promise<User> {
-    this.logger.verbose('createUser(', payload, ')');
-    const newUserProps = _.defaults(_.pick(payload, ['name', 'email']), {
+  async createUser(input: CreateUserInput): Promise<User> {
+    this.logger.verbose('createUser(', input, ')');
+    const newUserProps = _.defaults(_.pick(input, ['name', 'email']), {
       id: uuid(),
-      password: await hashPassword(payload.password),
+      password: await hashPassword(input.password),
       status: 'pending',
       createdAt: new Date(),
       updatedAt: new Date(),

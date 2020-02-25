@@ -22,8 +22,8 @@ export class UserController {
     this.logger.verbose('createUser(', ctx.request.body, ')');
     await this.validateCreateUser(ctx);
 
-    const payload = _.pick(ctx.request.body, ['name', 'email', 'password']);
-    const user = await userModel.createUser(payload);
+    const createUserInput = _.pick(ctx.request.body, ['name', 'email', 'password']);
+    const user = await userModel.createUser(createUserInput);
     const serializedUser = serializeUser(user);
 
     return ctx.success({ data: serializedUser, httpStatus: 201 });

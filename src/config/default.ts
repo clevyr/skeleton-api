@@ -5,6 +5,7 @@ module.exports = {
   jwtExpiration: 1000 * 60 * 5, // 5 minutes
   key: 'Configure locally',
   exposeErrors: true,
+  graphqlPlayground: true,
 
   database: {
     host: 'localhost',
