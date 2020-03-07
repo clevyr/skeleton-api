@@ -6,7 +6,7 @@ import request from 'supertest';
 import { users } from '../../database/seeds/test/initial';
 import api from '../../index.spec';
 import { ErrorCode } from '../../utils/errors';
-import { User, UserStatus } from './model';
+import { User, UserStatus } from './types';
 import { randomUser } from './utils';
 
 describe('UserController', () => {

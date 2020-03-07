@@ -6,7 +6,7 @@ import request from 'supertest';
 import { users } from '../../database/seeds/test/initial';
 import api from '../../index.spec';
 import { ErrorCode } from '../../utils/errors';
-import { UserStatus } from '../user/model';
+import { UserStatus } from '../user/types';
 import { randomUser } from '../user/utils';
 import { createAuthToken } from './utils';
 

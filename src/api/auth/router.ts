@@ -15,7 +15,7 @@ export class AuthRouter {
       )
       .post(
         '/',
-        authController.authenticate.bind(authController),
+        authController.login.bind(authController),
       )
       .delete(
         '/',

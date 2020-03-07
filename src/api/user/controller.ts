@@ -4,7 +4,9 @@ import _ from 'lodash';
 
 import { ConflictError, ErrorCode, UserError } from '../../utils/errors';
 import { Logger } from '../../utils/logger';
-import userModel, { UserStatus } from './model';
+import userModel from './model';
+import userService from './service';
+import { UserStatus } from './types';
 import { serializeUser } from './utils';
 
 export class UserController {
@@ -12,10 +14,11 @@ export class UserController {
 
   public async listUsers(ctx: Context) {
     this.logger.verbose('listUsers()');
-    const users = await userModel.listUsers();
-    const serializedUsers = users.map(serializeUser);
+    const users = await userService.listUsers({
+      auth: ctx.state.auth,
+    });
 
-    return ctx.success({ data: serializedUsers });
+    return ctx.success({ data: users });
   }
 
   public async createUser(ctx: Context) {

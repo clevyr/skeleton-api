@@ -4,35 +4,7 @@ import uuid from 'uuid/v4';
 import database from '../../database';
 import { Logger } from '../../utils/logger';
 import { hashPassword } from '../auth/utils';
-
-export enum UserStatus {
-  PENDING = 'PENDING',
-  ACTIVE = 'ACTIVE',
-  DISABLED = 'DISABLED',
-}
-
-export interface User {
-  id: string;
-  name?: string;
-  email: string;
-  password: string;
-  status: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface SerializedUser {
-  id: string;
-  name?: string;
-  email: string;
-  status: string;
-}
-
-export interface CreateUserInput {
-  name?: string;
-  email: string;
-  password: string;
-}
+import { CreateUserInput, User, UserStatus } from './types';
 
 export class UserModel {
   private logger = new Logger('UserModel');

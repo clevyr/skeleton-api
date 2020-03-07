@@ -1,6 +1,6 @@
 import * as Knex from 'knex';
 
-import { UserStatus } from '../../api/user/model';
+import { UserStatus } from '../../api/user/types';
 
 export async function up(knex: Knex) {
   await knex.schema.createTable('user', (table) => {

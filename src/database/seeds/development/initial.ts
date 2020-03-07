@@ -1,7 +1,7 @@
 import Knex from 'knex';
 
 import { hashPassword } from '../../../api/auth/utils';
-import { User } from '../../../api/user/model';
+import { User } from '../../../api/user/types';
 import { randomUser } from '../../../api/user/utils';
 
 const users: User[] = [

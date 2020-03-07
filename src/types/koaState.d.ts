@@ -1,5 +1,5 @@
 import { Note } from '../api/note/model';
-import { User } from '../api/user/model';
+import { User } from '../api/user/types';
 
 declare module 'koa' {
   interface DefaultState extends DefaultStateExtends {

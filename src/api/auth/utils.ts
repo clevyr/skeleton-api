@@ -3,7 +3,7 @@ import config from 'config';
 import jwt from 'jsonwebtoken';
 import { Context } from 'koa';
 
-import { User } from '../user/model';
+import { SerializedUser } from '../user/types';
 
 export function hashPassword(password: string): Promise<string> {
   return bcrypt.hash(password, 10);
@@ -13,14 +13,14 @@ export function comparePassword(password: string, hashedPassword: string): Promi
   return bcrypt.compare(password, hashedPassword);
 }
 
-export function createAuthToken(user: User): string {
+export function createAuthToken(user: SerializedUser): string {
   return jwt.sign({}, config.get('jwtSecret'), {
     expiresIn: config.get('jwtExpiration'),
     subject: user.id,
   });
 }
 
-export function setAuthCookie(ctx: Context, user: User) {
+export function setAuthCookie(ctx: Context, user: SerializedUser) {
   const authToken = createAuthToken(user);
 
   ctx.cookies.set('auth-cookie', authToken, {
